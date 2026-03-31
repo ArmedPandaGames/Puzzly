@@ -56,7 +56,7 @@ public class ButtonsManager : MonoBehaviour
                     }
                     else
                     {
-                        EndRound(false, "Incorrect buttons pressed");
+                        EndRound(false, "raaaaaa");
                         wonLastRound = false;
                     }
                 }
