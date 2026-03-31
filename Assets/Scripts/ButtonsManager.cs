@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class ButtonsManager : MonoBehaviour
 {
-    [SerializeField, Min(0f)] private float showingTime = 5f;
-    [Min(1)] public int buttonsToShow = 1;
+    [Min(1)] private int buttonsToShow = 1;
 
     [Space]
     [SerializeField] private List<Button> buttons = new List<Button>();
     private readonly HashSet<Button> chosenButtons = new HashSet<Button>();
 
-    private float showingTimeLeft = 5f;
+    private float showingTimeLeft;
     private bool roundActive;
     private bool canGuess = false;
-    public bool wonLastRound = false;
 
 
     private void Start()
     {
         RefreshButtonCollection();
         HideAllButtons();
-        ResetRoundTimer();
         roundActive = false;
     }
 
@@ -29,8 +26,6 @@ public class ButtonsManager : MonoBehaviour
     {
         if (roundActive)
         {
-
-
             if (showingTimeLeft > 0f)
             {
                 showingTimeLeft -= Time.deltaTime;
@@ -50,14 +45,11 @@ public class ButtonsManager : MonoBehaviour
                     bool allCorrect = chosenButtons.All(button => button.isPressed);
                     if (allCorrect)
                     {
-                        EndRound(true, "All correct buttons pressed");
-                        wonLastRound = true;
-
+                        EndRound(true);
                     }
                     else
                     {
-                        EndRound(false, "raaaaaa");
-                        wonLastRound = false;
+                        EndRound(false);
                     }
                 }
             }
@@ -68,9 +60,9 @@ public class ButtonsManager : MonoBehaviour
         }
     }
 
-    public void RefreshAndStartNewRound()
+    public void SetButtonsToShow(int count)
     {
-        StartNewRound();
+        buttonsToShow = count;
     }
 
     private void RefreshButtonCollection()
@@ -78,7 +70,7 @@ public class ButtonsManager : MonoBehaviour
         buttons = new List<Button>(FindObjectsOfType<Button>());
     }
 
-    private void StartNewRound()
+    public void StartNewRound()
     {
         RefreshButtonCollection();
         if (buttons.Count == 0)
@@ -116,26 +108,21 @@ public class ButtonsManager : MonoBehaviour
             }
         }
 
-        showingTimeLeft = showingTime;
+        showingTimeLeft = GameConfig.Instance.RoundShowingTime;
         roundActive = true;
-
     }
 
-    private void EndRound(bool won, string reason)
+    private void EndRound(bool won)
     {
-        Debug.Log(won ? $"You won! ({reason})" : $"You lost! ({reason})");
-
-        foreach (Button button in buttons)
-        {
-            button.chosen = false;
-        }
+        Debug.Log(won ? "You won!" : "You lost!");
 
         roundActive = false;
         canGuess = false;
         HideAllButtons();
-        ResetRoundTimer();
         ResetAllButtons();
 
+        // Emit event instead of using public flag
+        GameEvents.RaiseRoundCompleted(won);
     }
 
     private void ResetAllButtons()
@@ -153,11 +140,6 @@ public class ButtonsManager : MonoBehaviour
             button.Hide();
             button.chosen = false;
         }
-    }
-
-    private void ResetRoundTimer()
-    {
-        showingTimeLeft = showingTime;
     }
 
     private void MakeButtonsPressable(bool pressable)

@@ -570,9 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1713910fc9c9b46809caafa6584f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCount: 0
-  startingButtonCount: 4
-  maxButtonCount: 36
   buttonSpawner: {fileID: 779434286}
   buttonsManager: {fileID: 1282263951}
 --- !u!1 &1282263948
@@ -648,10 +645,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4a61dd966e8d9469b470f0aa2ef310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showingTime: 3
-  buttonsToShow: 1
   buttons: []
-  wonLastRound: 0
+--- !u!1 &2036058412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2036058414}
+  - component: {fileID: 2036058413}
+  m_Layer: 0
+  m_Name: GameConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2036058413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036058412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc67ac3b5f555b6419379c9bdbe236c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingButtonCount: 4
+  maxButtonCount: 36
+  roundShowingTime: 2
+--- !u!4 &2036058414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036058412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 159.4699, y: 144.17148, z: -2.99451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -661,3 +702,4 @@ SceneRoots:
   - {fileID: 464858982}
   - {fileID: 733239568}
   - {fileID: 779434287}
+  - {fileID: 2036058414}
